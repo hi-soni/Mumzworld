@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:GraphQl/etc/schema.xsd">
+    <customer_address_attributes>
+        <attribute code="area"/>
+    </customer_address_attributes>
+</config>

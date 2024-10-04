@@ -1,0 +1,46 @@
+type Mutation {
+    createCustomerAddress(input: CustomerAddressInput!): CustomerAddress @resolver(class: "Mumzworld\\ExerciseThree\\Model\\Resolver\\CreateCustomerAddress")
+    updateCustomerAddress(id: Int!, input: CustomerAddressInput!): CustomerAddress @resolver(class: "Mumzworld\\ExerciseThree\\Model\\Resolver\\UpdateCustomerAddress")
+}
+
+input CustomerAddressInput {
+    firstname: String
+    lastname: String
+    street: [String]
+    city: String
+    postcode: String
+    telephone: String
+    country_code: String
+    region: CustomerAddressRegionInput
+    area: String
+}
+
+type CustomerAddress {
+    id: Int
+    firstname: String
+    lastname: String
+    street: [String]
+    city: String
+    postcode: String
+    telephone: String
+    country_code: String
+    area: String
+    region: CustomerAddressRegion
+}
+
+type Query {
+    customer: Customer @resolver(class: "Mumzworld\\ExerciseThree\\Model\\Resolver\\CustomerAddressResolver")
+}
+
+type Customer {
+    addresses: [CustomerAddress]
+}
+
+type Query {
+    orders: [Order] @resolver(class: "Mumzworld\\ExerciseThree\\Model\\Resolver\\OrderResolver")
+}
+
+type Order {
+    shipping_address: CustomerAddress
+    billing_address: CustomerAddress
+}

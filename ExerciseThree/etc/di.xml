@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- <type name="Magento\Quote\Api\Data\AddressExtensionInterfaceFactory">
+        <plugin name="quote_address_area_plugin" type="Mumzworld\ExerciseThree\Plugin\QuoteAddressPlugin"/>
+    </type>
+    <type name="Magento\Sales\Api\Data\OrderAddressExtensionInterfaceFactory">
+        <plugin name="order_address_area_plugin" type="Mumzworld\ExerciseThree\Plugin\OrderAddressPlugin"/>
+    </type> -->
+
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="AreaAttributeInQuote"
+            type="Mumzworld\ExerciseThree\Plugin\ShippingInformationManagement" sortOrder="10" />
+    </type>
+
+    <!-- Add values to order address extension attribute -->
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="AreaAttributeInOrder"
+            type="Mumzworld\ExerciseThree\Plugin\AreaAttributeInOrder" sortOrder="1"
+            disabled="false" />
+    </type>
+
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="area_field" xsi:type="object">
+                    Mumzworld\ExerciseThree\Block\Checkout\Layoutprocessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="area" type="Mumzworld\ExerciseThree\Plugin\Checkout\Model\LayoutProcessor"
+            sortOrder="100" />
+    </type> -->
+
+</config>
