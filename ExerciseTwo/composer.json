@@ -1,0 +1,17 @@
+{
+    "name": "mumzworld/exercisetwo",
+    "description": "Is Product Eligible For Return",
+    "require": {
+      "php": "^7.4 || ^8.1",
+      "magento/framework": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "OSL-3.0",
+    "autoload": {
+      "files": [ "registration.php" ],
+      "psr-4": {
+        "Mumzworld\\ExerciseThree\\": ""
+      }
+    }
+  }

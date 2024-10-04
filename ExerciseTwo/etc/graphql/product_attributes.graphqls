@@ -1,0 +1,7 @@
+type ProductInterface {
+    eligible_for_return: Int
+        @doc(description: "Eligible For Return")
+        @resolver(
+            class: "Mumzworld\\ExerciseTwo\\Model\\Resolver\\EligibleForReturn"
+        )
+}
