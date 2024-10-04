@@ -50,6 +50,98 @@ Log clear: since we are expecting a high volume of messages, there are high chan
 - Logging: A database-backed logging system tracks each SMS sent and its status.
 - High Volume Handling: Message queueing allows high-volume processing of SMS notifications in an asynchronous manner, ensuring scalability.
 
+# Question 2: Eligible For Return
+
+**Overview**
+The Product Return Eligibility module for Magento allows you to add a custom product attribute that specifies how many days a product is eligible for returns after delivery. This module includes the following features:
+- Adds a custom product attribute (eligible_for_return) to define the number of days a product is eligible for return.
+- Displays the return eligibility information on the product page, conditionally based on system configuration.
+- Exposes the return_eligibility_days attribute through GraphQL queries and mutations.
+- Provides configuration to enable or disable the display of the return eligibility information on the frontend.
+**Key Features**
+- Product Attribute: Adds a product attribute for return eligibility days.
+- Conditional Display: Return eligibility information is shown conditionally based on system configuration.
+- GraphQL API: Supports querying product return eligibility days through GraphQL.
+  
+### Installation
+
+To install this module in your Magento 2.4 environment, follow these steps:
+
+1. **Download and Extract the Module**:
+   Download the module code and place it in the `app/code/Mumzworld/ExerciseTwo`
+
+2. **Run Magento Commands**:
+   Once the module is placed in the correct directory, execute the following commands from the Magento root folder:
+   ````
+   php bin/magento module:enable Mumzworld_ExerciseTwo
+   php bin/magento setup:upgrade
+   php bin/magento setup:di:compile
+   php bin/magento setup:static-content:deploy -f
+   ````
+### Configuration
+
+The module provides the following system configuration:
+1. Go to `Stores > Configuration > Mumzworld > Exercise Two`
+2. Enable or disable the display of return eligibility
+
+### GraphQL API Test Cases
+
+The following are the sample GraphQL queries and mutations you can use to test the Product Return Eligibility functionality:
+1. Query Product Return Eligibility Days
+To retrieve the return_eligibility_days for a product, you can use the following GraphQL query.
+````
+query {
+  products(filter: { sku: { eq: "product_sku_here" } }) {
+    items {
+      sku
+      eligible_for_return
+    }
+  }
+}
+````
+Output
+````
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "sku": "eligible_for_return",
+          "return_eligibility_days": 10
+        }
+      ]
+    }
+  }
+}
+````
+2. Query Product Return Eligibility with System Config Check
+If the system configuration to show the return eligibility is turned off, the value should be 0.
+````
+query {
+  products(filter: { sku: { eq: "product_sku_here" } }) {
+    items {
+      sku
+      eligible_for_return
+    }
+  }
+}
+````
+Output
+````
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "sku": "product_sku_here",
+          "eligible_for_return": 0
+        }
+      ]
+    }
+  }
+}
+````
+
 # Question 4: Price Drop Notification
 The solution will allow customers to opt-in for price drop notifications, configure thresholds for price drops, and process notifications efficiently. I'll also detail how the data will be stored, processed, and how it can be used for both logged-in and guest users.
 
