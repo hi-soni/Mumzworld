@@ -141,6 +141,174 @@ Output
   }
 }
 ````
+# Question 3: Area - Address attribute
+This module adds a custom attribute `area` to the customer address and makes it available in the order address. This module ensures that the area attribute is available in both REST APIs and GraphQL mutations and queries. The attribute is also propagated through the customer and order address data.
+###Features
+**1. Customer Address Attribute (area):**
+- Adds a custom attribute area to the customer address entity.
+- Ensures the area field is available for both billing and shipping addresses.
+
+**2. Order Address Propagation:**
+- The custom area field is propagated to sales order addresses.
+- It is saved and retrieved for both quote and order addresses.
+
+**3. API and GraphQL Support:**
+- **REST API**: The area attribute is accessible through customer and order REST APIs.
+- **GraphQL**:
+  - **Mutations**: Create and update customer addresses, including the area attribute.
+  - **Queries**: Retrieve customer and order addresses, including the area field.
+    
+**4. Custom GraphQL Implementation:**
+- The area field is exposed in Magento's GraphQL schema for customer and order addresses.
+- GraphQL mutations to create and update addresses respect the custom area field.
+
+### Installation
+
+To install this module in your Magento 2.4 environment, follow these steps:
+
+1. **Download and Extract the Module**:
+   Download the module code and place it in the `app/code/Mumzworld/ExerciseThree`
+
+2. **Run Magento Commands**:
+   Once the module is placed in the correct directory, execute the following commands from the Magento root folder:
+   ````
+   php bin/magento module:enable Mumzworld_ExerciseThree
+   php bin/magento setup:upgrade
+   php bin/magento setup:di:compile
+   php bin/magento setup:static-content:deploy -f
+   ````
+### GraphQL Test Cases
+Below are sample GraphQL test cases that demonstrate how to use the `area` field in both mutations (create and update customer addresses) and queries (fetch customer and order addresses).
+
+**1. Create Customer Address with area Attribute**
+
+GraphQL mutation to create a customer address with the area field:
+
+````
+mutation {
+  createCustomerAddress(
+    input: {
+      firstname: "John"
+      lastname: "Doe"
+      street: ["123 Main Street"]
+      city: "New York"
+      postcode: "10001"
+      telephone: "1234567890"
+      country_code: US
+      region: {
+        region: "New York"
+        region_code: "NY"
+        region_id: 43
+      }
+      area: "Downtown"
+    }
+  ) {
+    id
+    firstname
+    lastname
+    street
+    city
+    postcode
+    telephone
+    country_code
+    area
+    region {
+      region
+      region_code
+      region_id
+    }
+  }
+}
+````
+**2. Update Customer Address with area Attribute**
+
+````
+mutation {
+  updateCustomerAddress(
+    id: 1
+    input: {
+      firstname: "Jane"
+      lastname: "Doe"
+      street: ["456 Main Street"]
+      city: "Los Angeles"
+      postcode: "90001"
+      telephone: "0987654321"
+      country_code: US
+      region: {
+        region: "California"
+        region_code: "CA"
+        region_id: 12
+      }
+      area: "Suburbs"
+    }
+  ) {
+    id
+    firstname
+    lastname
+    street
+    city
+    postcode
+    telephone
+    country_code
+    area
+    region {
+      region
+      region_code
+      region_id
+    }
+  }
+}
+````
+**3. Fetch Customer Address Including area Attribute**
+
+GraphQL query to fetch customer addresses, including the area field:
+
+````
+query {
+  customer {
+    addresses {
+      firstname
+      lastname
+      street
+      city
+      postcode
+      telephone
+      country_code
+      area
+    }
+  }
+}
+````
+**4. Fetch Order Address Including area Attribute**
+
+GraphQL query to fetch order addresses (shipping and billing), including the area field:
+
+````
+query {
+  orders {
+    shipping_address {
+      firstname
+      lastname
+      street
+      city
+      postcode
+      telephone
+      country_code
+      area
+    }
+    billing_address {
+      firstname
+      lastname
+      street
+      city
+      postcode
+      telephone
+      country_code
+      area
+    }
+  }
+}
+````
 
 # Question 4: Price Drop Notification
 The solution will allow customers to opt-in for price drop notifications, configure thresholds for price drops, and process notifications efficiently. I'll also detail how the data will be stored, processed, and how it can be used for both logged-in and guest users.
