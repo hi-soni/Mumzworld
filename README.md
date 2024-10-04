@@ -5,7 +5,8 @@ The solution will be modular and configurable. The key objectives we are trying 
 3. History & Status: Record all sent messages and their statuses, including error tracking for failed messages.
 4. High Throughput: Module should be able to manage large number of messages.
 
-**Solution Architecture**
+### Solution Architecture
+
 In order to achieve above requirement, we need to create a custom module considering below features,
 
 **1. Abstraction Layer**
@@ -44,7 +45,7 @@ Magento has built-in support for message queues. We will use it to queue the mes
 We need to create a database table to log each SMS sent, along with its status and if there are any error details. This table can be exposed via the admin UI for review.
 Log clear: since we are expecting a high volume of messages, there are high chances that log table will have huge number of records. So, we should create a CRON job, that will delete/archive records after predefined duration.
 
-**Summary:**
+### Summary
 - Gateway Abstraction: Allows switching SMS providers without changing core logic.
 - Configurable Templates: Admin can configure SMS templates for different events and use dynamic variables.
 - Logging: A database-backed logging system tracks each SMS sent and its status.
