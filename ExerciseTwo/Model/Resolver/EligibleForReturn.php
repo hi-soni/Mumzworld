@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vendor\CustomModule\Model\Resolver;
+namespace Mumzworld\ExerciseTwo\Model\Resolver;
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\App\Config\ScopeConfigInterface;
